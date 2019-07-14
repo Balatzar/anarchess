@@ -1,0 +1,1 @@
+<span><%= link "Créer une partie", to: Routes.game_path(@conn, :new) %></span>
