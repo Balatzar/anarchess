@@ -79,6 +79,8 @@ function onMouseoverSquare(square, piece) {
     verbose: true,
   });
 
+  console.log(moves);
+
   // exit if there are no moves available for this square
   if (moves.length === 0) return;
 
