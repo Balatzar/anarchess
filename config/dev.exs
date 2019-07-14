@@ -28,7 +28,8 @@ config :anarchess, AnarchessWeb.Endpoint,
       "--watch-stdin",
       cd: Path.expand("../assets", __DIR__)
     ]
-  ]
+  ],
+  server: true
 
 # ## SSL Support
 #
