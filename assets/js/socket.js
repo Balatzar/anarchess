@@ -1,5 +1,5 @@
 import { Socket } from "phoenix";
-import Chess from "chess.js";
+import Chess from "./chess.js";
 
 let socket = new Socket("/socket", { params: { token: window.userToken } });
 
@@ -34,7 +34,7 @@ channel
   });
 
 var board = null;
-var game = new Chess();
+var game = new Chess(undefined, "w");
 var whiteSquareGrey = "#a9a9a9";
 var blackSquareGrey = "#696969";
 
@@ -73,12 +73,14 @@ function onDrop(source, target) {
 }
 
 function onMouseoverSquare(square, piece) {
+  console.log("MOUSE OVER");
   // get list of possible moves for this square
   var moves = game.moves({
     square: square,
     verbose: true,
   });
 
+  console.log(`moves generated:`);
   console.log(moves);
 
   // exit if there are no moves available for this square
