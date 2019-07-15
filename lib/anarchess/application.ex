@@ -11,9 +11,10 @@ defmodule Anarchess.Application do
       # Start the Ecto repository
       Anarchess.Repo,
       # Start the endpoint when the application starts
-      AnarchessWeb.Endpoint
+      AnarchessWeb.Endpoint,
       # Starts a worker by calling: Anarchess.Worker.start_link(arg)
       # {Anarchess.Worker, arg},
+      AnarchessWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

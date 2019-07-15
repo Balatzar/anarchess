@@ -8,5 +8,12 @@
 
 <div id="myBoard" style="width: 400px"></div>
 
+<button onclick="window.startGame()">Start</button>
+<button onclick="window.autoplay()">Autoplay</button>
+<select name="side">
+  <option value="w">Whites</option>
+  <option value="b">Blacks</option>
+</select>
+
 <div id="messages"></div>
 <input id="chat-input" type="text"></input>

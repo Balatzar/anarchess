@@ -33,7 +33,7 @@
  * https://github.com/jhlywa/chess.js/blob/master/LICENSE
  */
 
-var Chess = function(fen, side) {
+var Chess = function(fen) {
   /* jshint indent: false */
 
   var BLACK = "b";
@@ -663,7 +663,7 @@ var Chess = function(fen, side) {
 
   var board = new Array(128);
   var kings = { w: EMPTY, b: EMPTY };
-  var turn = side;
+  var turn = WHITE;
   var castling = { w: 0, b: 0 };
   var ep_square = EMPTY;
   var half_moves = 0;
@@ -683,7 +683,7 @@ var Chess = function(fen, side) {
   function clear() {
     board = new Array(128);
     kings = { w: EMPTY, b: EMPTY };
-    turn = side;
+    turn = WHITE;
     castling = { w: 0, b: 0 };
     ep_square = EMPTY;
     half_moves = 0;
@@ -974,9 +974,9 @@ var Chess = function(fen, side) {
     return piece;
   }
 
-  function build_move(board, from, to, flags, promotion) {
+  function build_move(board, from, to, flags, promotion, side) {
     var move = {
-      color: turn,
+      color: turn || side,
       from: from,
       to: to,
       flags: flags,
@@ -1005,15 +1005,26 @@ var Chess = function(fen, side) {
       ) {
         var pieces = [QUEEN, ROOK, BISHOP, KNIGHT];
         for (var i = 0, len = pieces.length; i < len; i++) {
-          moves.push(build_move(board, from, to, flags, pieces[i]));
+          moves.push(
+            build_move(
+              board,
+              from,
+              to,
+              flags,
+              pieces[i],
+              options && options.side
+            )
+          );
         }
       } else {
-        moves.push(build_move(board, from, to, flags));
+        moves.push(
+          build_move(board, from, to, flags, undefined, options && options.side)
+        );
       }
     }
 
     var moves = [];
-    var us = turn;
+    var us = (options && options.side) || turn;
     var them = swap_color(us);
     var second_rank = { b: RANK_7, w: RANK_2 };
 
@@ -1146,7 +1157,7 @@ var Chess = function(fen, side) {
     /* filter out illegal moves */
     var legal_moves = [];
     for (var i = 0, len = moves.length; i < len; i++) {
-      make_move(moves[i]);
+      make_move(moves[i], options && options.side);
       if (!king_attacked(us)) {
         legal_moves.push(moves[i]);
       }
@@ -1166,7 +1177,7 @@ var Chess = function(fen, side) {
    * 4. ... Nge7 is overly disambiguated because the knight on c6 is pinned
    * 4. ... Ne7 is technically the valid SAN
    */
-  function move_to_san(move, sloppy) {
+  function move_to_san(move, sloppy, side) {
     var output = "";
 
     if (move.flags & BITS.KSIDE_CASTLE) {
@@ -1174,7 +1185,7 @@ var Chess = function(fen, side) {
     } else if (move.flags & BITS.QSIDE_CASTLE) {
       output = "O-O-O";
     } else {
-      var disambiguator = get_disambiguator(move, sloppy);
+      var disambiguator = get_disambiguator(move, sloppy, side);
 
       if (move.piece !== PAWN) {
         output += move.piece.toUpperCase() + disambiguator;
@@ -1194,9 +1205,9 @@ var Chess = function(fen, side) {
       }
     }
 
-    make_move(move);
-    if (in_check()) {
-      if (in_checkmate()) {
+    make_move(move, side);
+    if (in_check(side)) {
+      if (in_checkmate(side)) {
         output += "#";
       } else {
         output += "+";
@@ -1263,16 +1274,16 @@ var Chess = function(fen, side) {
     return attacked(swap_color(color), kings[color]);
   }
 
-  function in_check() {
-    return king_attacked(turn);
+  function in_check(side) {
+    return king_attacked(side || turn);
   }
 
-  function in_checkmate() {
-    return in_check() && generate_moves().length === 0;
+  function in_checkmate(side) {
+    return in_check(side) && generate_moves({ side }).length === 0;
   }
 
-  function in_stalemate() {
-    return !in_check() && generate_moves().length === 0;
+  function in_stalemate(side) {
+    return !in_check(side) && generate_moves({ side }).length === 0;
   }
 
   function insufficient_material() {
@@ -1322,7 +1333,7 @@ var Chess = function(fen, side) {
     return false;
   }
 
-  function in_threefold_repetition() {
+  function in_threefold_repetition(side) {
     /* TODO: while this function is fine for casual use, a better
      * implementation would use a Zobrist key (instead of FEN). the
      * Zobrist key would be maintained in the make_move/undo_move functions,
@@ -1355,17 +1366,17 @@ var Chess = function(fen, side) {
       if (!moves.length) {
         break;
       }
-      make_move(moves.pop());
+      make_move(moves.pop(), side);
     }
 
     return repetition;
   }
 
-  function push(move) {
+  function push(move, side) {
     history.push({
       move: move,
       kings: { b: kings.b, w: kings.w },
-      turn: turn,
+      turn: side || turn,
       castling: { b: castling.b, w: castling.w },
       ep_square: ep_square,
       half_moves: half_moves,
@@ -1373,17 +1384,17 @@ var Chess = function(fen, side) {
     });
   }
 
-  function make_move(move) {
-    var us = turn;
+  function make_move(move, side) {
+    var us = side || turn;
     var them = swap_color(us);
-    push(move);
+    push(move, side);
 
     board[move.to] = board[move.from];
     board[move.from] = null;
 
     /* if ep capture, remove the captured pawn */
     if (move.flags & BITS.EP_CAPTURE) {
-      if (turn === BLACK) {
+      if ((side || turn) === BLACK) {
         board[move.to - 16] = null;
       } else {
         board[move.to + 16] = null;
@@ -1465,7 +1476,7 @@ var Chess = function(fen, side) {
     if (turn === BLACK) {
       move_number++;
     }
-    // turn = swap_color(turn);
+    turn = swap_color(turn);
   }
 
   function undo_move() {
@@ -1519,8 +1530,8 @@ var Chess = function(fen, side) {
   }
 
   /* this function is used to uniquely identify ambiguous moves */
-  function get_disambiguator(move, sloppy) {
-    var moves = generate_moves({ legal: !sloppy });
+  function get_disambiguator(move, sloppy, side) {
+    var moves = generate_moves({ legal: !sloppy, side });
 
     var from = move.from;
     var to = move.to;
@@ -1671,9 +1682,9 @@ var Chess = function(fen, side) {
   }
 
   /* pretty = external move object */
-  function make_pretty(ugly_move) {
+  function make_pretty(ugly_move, side) {
     var move = clone(ugly_move);
-    move.san = move_to_san(move, false);
+    move.san = move_to_san(move, false, side);
     move.to = algebraic(move.to);
     move.from = algebraic(move.from);
 
@@ -1792,9 +1803,11 @@ var Chess = function(fen, side) {
           "verbose" in options &&
           options.verbose
         ) {
-          moves.push(make_pretty(ugly_moves[i]));
+          moves.push(make_pretty(ugly_moves[i], options && options.side));
         } else {
-          moves.push(move_to_san(ugly_moves[i], false));
+          moves.push(
+            move_to_san(ugly_moves[i], false, options && options.side)
+          );
         }
       }
 
@@ -1830,13 +1843,13 @@ var Chess = function(fen, side) {
       return in_threefold_repetition();
     },
 
-    game_over: function() {
+    game_over: function(side) {
       return (
         half_moves >= 100 ||
-        in_checkmate() ||
-        in_stalemate() ||
+        in_checkmate(side) ||
+        in_stalemate(side) ||
         insufficient_material() ||
-        in_threefold_repetition()
+        in_threefold_repetition(side)
       );
     },
 
@@ -2124,7 +2137,7 @@ var Chess = function(fen, side) {
       if (typeof move === "string") {
         move_obj = move_from_san(move, sloppy);
       } else if (typeof move === "object") {
-        var moves = generate_moves();
+        var moves = generate_moves({ side: options && options.side });
 
         /* convert the pretty move object to an ugly move object */
         for (var i = 0, len = moves.length; i < len; i++) {
@@ -2148,9 +2161,9 @@ var Chess = function(fen, side) {
       /* need to make a copy of move because we can't generate SAN after the
        * move is made
        */
-      var pretty_move = make_pretty(move_obj);
+      var pretty_move = make_pretty(move_obj, options && options.side);
 
-      make_move(move_obj);
+      make_move(move_obj, options && options.side);
 
       return pretty_move;
     },
@@ -2224,4 +2237,5 @@ if (typeof define !== "undefined")
   define(function() {
     return Chess;
   });
+
 export default Chess;
