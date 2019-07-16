@@ -57,9 +57,9 @@ window.startGame = function() {
   }
 
   function onDragStart(source, piece) {
-    console.log("calling test game over");
+    // console.log("calling test game over");
     // do not pick up pieces if the game is over
-    if (game.game_over(side)) return false;
+    // if (game.game_over(side)) return false;
   }
 
   function onDrop(source, target) {
@@ -72,29 +72,34 @@ window.startGame = function() {
         to: target,
         promotion: "q", // NOTE: always promote to a queen for example simplicity,
       },
-      { side: side }
+      { side }
     );
 
     // illegal move
     if (move === null) return "snapback";
 
-    // channel.push("move", {
-    //   from: source,
-    //   to: target,
-    //   side: $('select[name="side"]').val(),
-    // });
+    channel.push("move", {
+      from: source,
+      to: target,
+      side: $('select[name="side"]').val(),
+    });
   }
 
-  // channel.on("move", ({ from, side, to }) => {
-  //   console.log("MOVE");
-  //   if (side !== $('select[name="side"]').val()) {
-  //     game.move({
-  //       from,
-  //       to,
-  //       promotion: "q", // NOTE: always promote to a queen for example simplicity
-  //     });
-  //   }
-  // });
+  channel.on("move", ({ from, side, to }) => {
+    if (side !== $('select[name="side"]').val()) {
+      console.log("handle move");
+      const move = window.game.move(
+        {
+          from,
+          to,
+          promotion: "q", // NOTE: always promote to a queen for example simplicity
+        },
+        { side }
+      );
+      window.board.move(`${from}-${to}`);
+      console.log(move);
+    }
+  });
 
   function onMouseoverSquare(square, piece) {
     console.log("MOUSE OVER");

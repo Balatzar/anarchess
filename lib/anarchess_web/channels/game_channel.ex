@@ -7,11 +7,11 @@ defmodule AnarchessWeb.GameChannel do
 
   def handle_in("new_msg", %{"body" => body}, socket) do
     broadcast!(socket, "new_msg", %{body: body})
-    {:no_reply, socket}
+    {:noreply, socket}
   end
 
   def handle_in("move", %{"from" => from, "side" => side, "to" => to}, socket) do
     broadcast!(socket, "move", %{from: from, side: side, to: to})
-    {:no_reply, socket}
+    {:noreply, socket}
   end
 end
