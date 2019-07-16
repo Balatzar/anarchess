@@ -154,9 +154,9 @@ window.autoplay = function() {
     game.move(possibleMoves[randomIdx], { side });
     board.position(game.fen());
 
-    setTimeout(makeRandomMove, 2000);
+    setTimeout(makeRandomMove, 1000);
   }
-  setTimeout(makeRandomMove, 2000);
+  setTimeout(makeRandomMove, 500);
 };
 
 export default socket;
