@@ -7,12 +7,13 @@ defmodule AnarchessWeb.GameChannel do
   end
 
   def handle_in("new_msg", %{"body" => body}, socket) do
+    Anarchess.Web.create_game_comment(socket.assigns.game, %{body: body})
     broadcast!(socket, "new_msg", %{body: body})
     {:noreply, socket}
   end
 
   def handle_in("move", %{"from" => from, "side" => side, "to" => to}, socket) do
-    Anarchess.Web.create_move(%{from: from, side: side, to: to}, socket.assigns.game)
+    Anarchess.Web.create_game_move(socket.assigns.game, %{from: from, side: side, to: to})
     broadcast!(socket, "move", %{from: from, side: side, to: to})
     {:noreply, socket}
   end

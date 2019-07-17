@@ -20,7 +20,7 @@ chatInput.addEventListener("keypress", event => {
 
 channel.on("new_msg", payload => {
   const messageItem = document.createElement("li");
-  messageItem.innerText = `[${Date()}] ${payload.body}`;
+  messageItem.innerText = payload.body;
   messagesContainer.appendChild(messageItem);
 });
 

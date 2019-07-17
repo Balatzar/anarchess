@@ -4,6 +4,7 @@ defmodule Anarchess.Web.Game do
 
   schema "games" do
     has_many :moves, Anarchess.Web.Move
+    has_many :comments, Anarchess.Web.Comment
 
     timestamps()
   end

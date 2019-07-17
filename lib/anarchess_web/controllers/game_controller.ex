@@ -26,7 +26,7 @@ defmodule AnarchessWeb.GameController do
   end
 
   def show(conn, %{"id" => id}) do
-    game = Web.get_game!(id)
+    game = Web.get_game_with_comments!(id)
     render(conn, "show.html", game: game)
   end
 
