@@ -3,6 +3,7 @@ defmodule Anarchess.Web.Game do
   import Ecto.Changeset
 
   schema "games" do
+    has_many :moves, Anarchess.Web.Move
 
     timestamps()
   end

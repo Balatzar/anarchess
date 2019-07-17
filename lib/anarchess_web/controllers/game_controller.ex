@@ -58,4 +58,9 @@ defmodule AnarchessWeb.GameController do
     |> put_flash(:info, "Game deleted successfully.")
     |> redirect(to: Routes.game_path(conn, :index))
   end
+
+  def replay(conn, %{"id" => id}) do
+    game = Web.get_game_with_moves!(id)
+    render(conn, "replay.html", game: game)
+  end
 end

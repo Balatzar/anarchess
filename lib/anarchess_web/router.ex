@@ -19,6 +19,7 @@ defmodule AnarchessWeb.Router do
     get "/", PageController, :index
     get "/faq", PageController, :faq
 
+    get "/games/:id/replay", GameController, :replay
     resources "/games", GameController
   end
 

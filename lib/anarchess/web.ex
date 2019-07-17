@@ -7,6 +7,7 @@ defmodule Anarchess.Web do
   alias Anarchess.Repo
 
   alias Anarchess.Web.Game
+  alias Anarchess.Web.Move
 
   @doc """
   Returns the list of games.
@@ -36,6 +37,11 @@ defmodule Anarchess.Web do
 
   """
   def get_game!(id), do: Repo.get!(Game, id)
+
+  def get_game_with_moves!(id) do
+    Repo.get!(Game, id)
+    |> Repo.preload([:moves])
+  end
 
   @doc """
   Creates a game.

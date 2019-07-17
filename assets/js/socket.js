@@ -6,7 +6,7 @@ let socket = new Socket("/socket", { params: { token: window.userToken } });
 socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
-const channel = socket.channel("games:lobby", {});
+const channel = socket.channel("games:" + $("code.js-data").data().gameId, {});
 
 const chatInput = document.querySelector("#chat-input");
 const messagesContainer = document.querySelector("#messages");
@@ -142,6 +142,7 @@ window.startGame = function() {
     onMouseoverSquare: onMouseoverSquare,
     onSnapEnd: onSnapEnd,
     pieceTheme: "/images/chessboard/pieces/{piece}.png",
+    orientation: $('select[name="side"]').val() == "b" ? "black" : "white",
   };
 
   window.board = Chessboard("myBoard", config);

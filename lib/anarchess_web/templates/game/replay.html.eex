@@ -6,6 +6,10 @@
         integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
         crossorigin="anonymous"></script>
 
+<%= for move <- @game.moves do %>
+  <%= move.id %>
+<% end %>
+
 <div id="myBoard" style="width: 400px"></div>
 
 <button onclick="window.startGame()">Start</button>
