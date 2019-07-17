@@ -5,21 +5,21 @@
 <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"
         integrity="sha384-8Vi8VHwn3vjQ9eUHUxex3JSN/NFqUg3QbPyX8kWyb93+8AC/pPWTzj+nHtbC5bxD"
         crossorigin="anonymous"></script>
+<div class="row">
+  <div class="column">
+    <div id="myBoard" style="width: 400px"></div>
 
-<%= for move <- @game.moves do %>
-  <%= move.id %>
-<% end %>
+    <button onclick="window.startReplay()">Start replay</button>
+  </div>
 
-<div id="myBoard" style="width: 400px"></div>
+  <div class="column">
+    <div id="messages">
+      <%= for comment <- @game.comments do %>
+        <li><%= comment.body %></li>
+      <% end %>
+    </div>
+    <input disabled id="chat-input" type="text">
+  </div>
+<div>
 
-<button onclick="window.startGame()">Start</button>
-<button onclick="window.autoplay()">Autoplay</button>
-<select name="side">
-  <option value="w">Whites</option>
-  <option value="b">Blacks</option>
-</select>
-
-<div id="messages"></div>
-<input id="chat-input" type="text"></input>
-
-<code class="js-data" style="display: none;" data-game-id=<%= @game.id%>></code>
+<code class="js-data" style="display: none;" data-game-id=<%= @game.id%> data-moves="<%= Poison.encode!(@game.moves) %>"></code>

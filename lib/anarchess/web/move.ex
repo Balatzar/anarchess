@@ -2,6 +2,8 @@ defmodule Anarchess.Web.Move do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:from, :to, :side]}
+
   schema "moves" do
     field :from, :string
     field :to, :string

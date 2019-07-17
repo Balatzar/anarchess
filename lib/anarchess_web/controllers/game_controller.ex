@@ -60,7 +60,7 @@ defmodule AnarchessWeb.GameController do
   end
 
   def replay(conn, %{"id" => id}) do
-    game = Web.get_game_with_moves!(id)
+    game = Web.get_game_with_all_dependecies!(id)
     render(conn, "replay.html", game: game)
   end
 end

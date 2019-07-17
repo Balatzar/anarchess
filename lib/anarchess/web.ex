@@ -49,6 +49,11 @@ defmodule Anarchess.Web do
     |> Repo.preload([:comments])
   end
 
+  def get_game_with_all_dependecies!(id) do
+    Repo.get!(Game, id)
+    |> Repo.preload([:comments, :moves])
+  end
+
   @doc """
   Creates a game.
 
