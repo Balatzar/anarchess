@@ -1,1 +1,22 @@
 <h1>FAQ<h1>
+
+<h2>What is this?</h2>
+<p>
+  Anarchess is a web game accessible without creating an account that allows you to challenge a friend or stranger. The game is presented as a classic chess game, but unlike the original version which is in turn by turn, our version is in real time.
+</p>
+
+<h2>How do you play?</h2>
+<p>
+  Anarchess is played very much like an online version of chess, but both players can play as fast as they want as they want, without waiting for the other to play. This is the only difference with the classic version of the game, all the other rules remain the same (allowed moves, victory conditions, checking etc...).
+</p>
+
+<h2>Who made this and why?</h2>
+<p>
+  <a target="_blank" href="https://github.com/Balatzar/">Balthazar Aubard</a> made this! I wanted to create a simple but fun video game that anyone could play without installing anything or registering an account.
+</p>
+
+<h2>How can I contact you?</h2>
+<p>
+  You can <a target="_blank" href="mailto:bataprod+anarchess@gmail.com">send me an email</a>.
+</p>
+

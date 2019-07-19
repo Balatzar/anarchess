@@ -16,11 +16,11 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <li><%= link "How to play", to: Routes.page_path(@conn, :faq) %></li>
           </ul>
         </nav>
-        <a href="/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+        <a href="/" class="header-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/logos/big.png") %>" alt="Anarchess Logo (a bishop chess piece holding a morning star)"/>
         </a>
       </section>
     </header>

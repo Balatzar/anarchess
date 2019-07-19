@@ -1,3 +1,7 @@
 /* This file is for your main application css. */
 
 @import "./phoenix.css";
+
+.header-logo {
+  max-width: 200px;
+}
