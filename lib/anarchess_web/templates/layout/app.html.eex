@@ -10,6 +10,8 @@
     <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/logos/big.png") %>"/>
     <meta property="og:description" content="Chess but in real time"/>
     <meta property="og:site_name" content="Anarchess"/>
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@BalthazarAubard"/>
     <title>Anarchess</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -31,8 +33,8 @@
       </section>
     </header>
     <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <p class="alert js-alert-info alert-info hidden" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert js-alert-danger alert-danger hidden" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

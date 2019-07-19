@@ -1,3 +1,5 @@
+import toastr from "../tools/toasts";
+
 $(document).ready(() => {
   if (!$("body.Elixir-AnarchessWeb-GameController.replay").length) return;
   const board = Chessboard("myBoard", {
@@ -6,6 +8,7 @@ $(document).ready(() => {
   });
 
   window.startReplay = () => {
+    toastr["success"]("Replay started");
     const moves = $("code.js-data").data().moves;
     const replay = setInterval(() => {
       if (moves.length) {
