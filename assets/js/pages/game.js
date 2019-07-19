@@ -10,12 +10,13 @@ $(document).ready(() => {
   );
 
   const chatInput = document.querySelector("#chat-input");
-  const messagesContainer = document.querySelector("#messages");
+  const messagesContainer = document.querySelector(".js-messages");
 
   chatInput.addEventListener("keypress", event => {
     if (event.keyCode === 13) {
       channel.push("new_msg", { body: chatInput.value });
       chatInput.value = "";
+      $(".js-messages").scrollTop($(".js-messages").height());
     }
   });
 
@@ -23,6 +24,7 @@ $(document).ready(() => {
     const messageItem = document.createElement("li");
     messageItem.innerText = payload.body;
     messagesContainer.appendChild(messageItem);
+    $(".js-messages").scrollTop($(".js-messages").height());
   });
 
   channel

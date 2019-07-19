@@ -23,7 +23,7 @@
   </div>
 
   <div class="column">
-    <div id="messages">
+    <div class="messages js-messages">
       <%= for comment <- @game.comments do %>
         <li><%= comment.body %></li>
       <% end %>

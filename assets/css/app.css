@@ -9,3 +9,8 @@
 .hidden {
   display: none;
 }
+
+.messages {
+  max-height: 400px;
+  overflow-x: scroll;
+}
