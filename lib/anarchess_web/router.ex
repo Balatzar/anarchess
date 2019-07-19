@@ -21,7 +21,6 @@ defmodule AnarchessWeb.Router do
 
     get "/games/:id/replay", GameController, :replay
     resources "/games", GameController
-    resources "/comments", CommentController
   end
 
   # Other scopes may use custom stacks.
