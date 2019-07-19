@@ -4,6 +4,12 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta property="og:title" content="Anarchess"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://www.anarchess.io"/>
+    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/logos/big.png") %>"/>
+    <meta property="og:description" content="Chess but in real time"/>
+    <meta property="og:site_name" content="Anarchess"/>
     <title>Anarchess</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
