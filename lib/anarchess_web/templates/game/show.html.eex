@@ -11,7 +11,7 @@
       <p>The game has ended!</p>
       <%= link "Show replay", to: Routes.game_path(@conn, :replay, @game) %>
     <% else %>
-      <div id="myBoard" style="width: 400px"></div>
+      <div id="myBoard"></div>
       <%= cond do %>
       <% get_session(@conn, :user) == @white -> %>
         <button onclick="window.startGame()">Start</button>

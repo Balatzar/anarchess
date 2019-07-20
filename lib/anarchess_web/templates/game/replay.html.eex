@@ -7,7 +7,7 @@
         crossorigin="anonymous"></script>
 <div class="row">
   <div class="column">
-    <div id="myBoard" style="width: 400px"></div>
+    <div id="myBoard"></div>
 
     <button onclick="window.startReplay()">Start replay</button>
   </div>
