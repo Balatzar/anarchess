@@ -15,7 +15,7 @@
       <%= cond do %>
       <% get_session(@conn, :user) == @white -> %>
         <button onclick="window.startGame()">Start</button>
-        <button onclick="window.autoplay()">Autoplay</button>
+        <button onclick="window.autoplay()">Play against drunk computer</button>
         <p>You are playing whites</p>
         <input hidden name="side" value="w">
         <%= if !@black do %>
@@ -28,7 +28,7 @@
         <% end %>
       <% get_session(@conn, :user) == @black -> %>
         <button onclick="window.startGame()">Start</button>
-        <button onclick="window.autoplay()">Autoplay</button>
+        <button onclick="window.autoplay()">Play against drunk computer</button>
         <p>You are playing blacks</p>
         <input hidden name="side" value="b">
       <% true -> %>

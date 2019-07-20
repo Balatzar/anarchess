@@ -38,10 +38,18 @@ $(document).ready(() => {
     $(".js-openGameText").hide();
   });
 
+  channel.on("user_joined", ({ user_id }) => {
+    console.log(user_id);
+    if (user_id != window.userToken) {
+      toastr["success"]("Someone joined your game!");
+    }
+  });
+
   channel
     .join()
     .receive("ok", resp => {
       console.log("Joined successfully", resp);
+      channel.push("user_joined");
     })
     .receive("error", resp => {
       console.log("Unable to join", resp);
@@ -163,6 +171,7 @@ $(document).ready(() => {
   };
 
   window.autoplay = function() {
+    window.startGame();
     const side = $('input[name="side"]').val() == "b" ? "w" : "b";
     function makeRandomMove() {
       var possibleMoves = game.moves({ side });

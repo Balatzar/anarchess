@@ -12,8 +12,7 @@ use Mix.Config
 config :anarchess, AnarchessWeb.Endpoint,
   url: [host: "www.anarchess.io", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  server: true,
-  check_origin: ["https://www.anarchess.io"]
+  server: true
 
 # Do not print debug messages in production
 config :logger, level: :info

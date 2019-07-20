@@ -2,6 +2,7 @@ defmodule AnarchessWeb.UserSocket do
   use Phoenix.Socket
 
   channel "games:*", AnarchessWeb.GameChannel
+  channel "global", AnarchessWeb.GlobalChannel
 
   ## Channels
   # channel "room:*", AnarchessWeb.RoomChannel

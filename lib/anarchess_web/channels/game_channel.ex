@@ -23,4 +23,9 @@ defmodule AnarchessWeb.GameChannel do
     broadcast!(socket, "open_game", %{})
     {:noreply, socket}
   end
+
+  def handle_in("user_joined", _params, socket) do
+    broadcast!(socket, "user_joined", %{user_id: socket.assigns.user.id})
+    {:noreply, socket}
+  end 
 end

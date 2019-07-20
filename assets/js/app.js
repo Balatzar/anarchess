@@ -6,3 +6,4 @@ import "./tools/toasts";
 
 import "./pages/game";
 import "./pages/replay";
+import "./pages/global";

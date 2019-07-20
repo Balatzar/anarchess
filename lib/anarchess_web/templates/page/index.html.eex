@@ -1,3 +1,4 @@
 <span><%= link "Create a game", to: Routes.game_path(@conn, :new) %></span>
 <div class="js-joinGame <%= if Enum.any?(@open_games), do: '', else: 'hidden' %>">
 <span><%= link "Join a game", to: Routes.game_path(@conn, :join) %></span>
+<p>There are currently <span class="js-globalCount"></span> players connected</p>
