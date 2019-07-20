@@ -17,4 +17,10 @@ defmodule AnarchessWeb.GameChannel do
     broadcast!(socket, "move", %{from: from, side: side, to: to})
     {:noreply, socket}
   end
+
+  def handle_in("open_game", _params, socket) do
+    Anarchess.Web.open_game(socket.assigns.game)
+    broadcast!(socket, "open_game", %{})
+    {:noreply, socket}
+  end
 end

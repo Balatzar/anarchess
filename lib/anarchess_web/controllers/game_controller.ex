@@ -66,4 +66,8 @@ defmodule AnarchessWeb.GameController do
     game = Web.get_game_with_all_dependecies!(id)
     render(conn, "replay.html", game: game)
   end
+
+  def join(conn, _params) do
+    redirect(conn, to: Routes.game_path(conn, :show, Enum.at(Anarchess.Web.list_public_games, 0)))
+  end
 end

@@ -19,7 +19,11 @@
         <p>You are playing whites</p>
         <input hidden name="side" value="w">
         <%= if !@black do %>
-          <p>Invite someone by sharing this url or <a href="#">open your game</a> so anyone can join</p>
+          <p>Invite someone by sharing this url 
+          <%= if !@game.public do %>
+            <span class="js-openGameText">or <a class="js-openGame" href="#">open your game</a> so anyone can join</span>
+          <% end %>
+          </p>
           <input type="text" value='<%= current_url(@conn) %>'>
         <% end %>
       <% get_session(@conn, :user) == @black -> %>

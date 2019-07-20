@@ -1,5 +1,6 @@
 import Chess from "../tools/chess";
 import socket from "../tools/socket";
+import toastr from "../tools/toasts";
 
 $(document).ready(() => {
   if (!$("body.Elixir-AnarchessWeb-GameController.show").length) return;
@@ -25,6 +26,16 @@ $(document).ready(() => {
     messageItem.innerText = payload.body;
     messagesContainer.appendChild(messageItem);
     $(".js-messages").scrollTop($(".js-messages").height());
+  });
+
+  $(".js-openGame").click(e => {
+    e.preventDefault();
+    channel.push("open_game");
+  });
+
+  channel.on("open_game", () => {
+    toastr["success"]("Your game is now open!");
+    $(".js-openGameText").hide();
   });
 
   channel

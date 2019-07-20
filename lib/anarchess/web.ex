@@ -23,6 +23,11 @@ defmodule Anarchess.Web do
     Repo.all(Game)
   end
 
+  def list_public_games do
+    query = from g in Game, where: g.public == true
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single game.
 
@@ -329,5 +334,9 @@ defmodule Anarchess.Web do
     game_changeset = Ecto.Changeset.change(game)
     users_games_changeset = game_changeset |> Ecto.Changeset.put_assoc(:users, [user | game.users])
     Repo.update!(users_games_changeset)
+  end
+
+  def open_game(game) do
+    update_game(game, %{public: true})
   end
 end
