@@ -26,8 +26,11 @@ defmodule AnarchessWeb.GameController do
   end
 
   def show(conn, %{"id" => id}) do
+    Anarchess.Web.associate_user_to_game(get_session(conn, :user), id)
     game = Web.get_game_with_all_dependecies!(id)
-    render(conn, "show.html", game: game)
+    white = Enum.at(game.users, 0)
+    black = Enum.at(game.users, 1)
+    render(conn, "show.html", game: game, white: white, black: black)
   end
 
   def edit(conn, %{"id" => id}) do

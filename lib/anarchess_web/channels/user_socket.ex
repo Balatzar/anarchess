@@ -17,8 +17,9 @@ defmodule AnarchessWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket, _connect_info) do
+    user = Anarchess.Web.get_user!(String.to_integer(token))
+    {:ok, assign(socket, :user, user)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

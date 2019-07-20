@@ -37,10 +37,10 @@ $(document).ready(() => {
     });
 
   window.startGame = function() {
-    console.log($('select[name="side"]').val());
+    console.log($('input[name="side"]').val());
     window.board = null;
     window.game = new Chess();
-    const side = $('select[name="side"]').val();
+    const side = $('input[name="side"]').val();
     var whiteSquareGrey = "#a9a9a9";
     var blackSquareGrey = "#696969";
 
@@ -84,12 +84,12 @@ $(document).ready(() => {
       channel.push("move", {
         from: source,
         to: target,
-        side: $('select[name="side"]').val(),
+        side: $('input[name="side"]').val(),
       });
     }
 
     channel.on("move", ({ from, side, to }) => {
-      if (side !== $('select[name="side"]').val()) {
+      if (side !== $('input[name="side"]').val()) {
         console.log("handle move");
         const move = window.game.move(
           {
@@ -145,14 +145,14 @@ $(document).ready(() => {
       onMouseoverSquare: onMouseoverSquare,
       onSnapEnd: onSnapEnd,
       pieceTheme: "/images/chessboard/pieces/{piece}.png",
-      orientation: $('select[name="side"]').val() == "b" ? "black" : "white",
+      orientation: $('input[name="side"]').val() == "b" ? "black" : "white",
     };
 
     window.board = Chessboard("myBoard", config);
   };
 
   window.autoplay = function() {
-    const side = $('select[name="side"]').val() == "b" ? "w" : "b";
+    const side = $('input[name="side"]').val() == "b" ? "w" : "b";
     function makeRandomMove() {
       var possibleMoves = game.moves({ side });
 

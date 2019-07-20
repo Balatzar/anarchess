@@ -12,17 +12,33 @@
       <%= link "Show replay", to: Routes.game_path(@conn, :replay, @game) %>
     <% else %>
       <div id="myBoard" style="width: 400px"></div>
-
-      <button onclick="window.startGame()">Start</button>
-      <button onclick="window.autoplay()">Autoplay</button>
-      <select name="side">
-        <option value="w">Whites</option>
-        <option value="b">Blacks</option>
-      </select>
+      <%= cond do %>
+      <% get_session(@conn, :user) == @white -> %>
+        <button onclick="window.startGame()">Start</button>
+        <button onclick="window.autoplay()">Autoplay</button>
+        <p>You are playing whites</p>
+        <input hidden name="side" value="w">
+        <%= if !@black do %>
+          <p>Invite someone by sharing this url or <a href="#">open your game</a> so anyone can join</p>
+          <input type="text" value='<%= current_url(@conn) %>'>
+        <% end %>
+      <% get_session(@conn, :user) == @black -> %>
+        <button onclick="window.startGame()">Start</button>
+        <button onclick="window.autoplay()">Autoplay</button>
+        <p>You are playing blacks</p>
+        <input hidden name="side" value="b">
+      <% true -> %>
+        <p>You are spectating</p>
+      <% end %>
+      <p>There are currently <%= length(@game.users) %> players connected to this game</p>
+      <%= for user <- @game.users do %>
+        <p><%= user.id %></p>
+      <% end %>
     <% end %>
   </div>
 
   <div class="column">
+    <h2>Chat</h2>
     <div class="messages js-messages">
       <%= for comment <- @game.comments do %>
         <li><%= comment.body %></li>

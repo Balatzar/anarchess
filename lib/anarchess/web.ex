@@ -51,7 +51,7 @@ defmodule Anarchess.Web do
 
   def get_game_with_all_dependecies!(id) do
     Repo.get!(Game, id)
-    |> Repo.preload([:comments, :moves])
+    |> Repo.preload([:comments, :moves, :users])
   end
 
   @doc """
@@ -324,10 +324,10 @@ defmodule Anarchess.Web do
     User.changeset(user, %{})
   end
 
-  def associate_user_to_game(user, game) do
-    game = Repo.preload(game, [:users])
+  def associate_user_to_game(user, game_id) do
+    game = get_game_with_all_dependecies!(game_id)
     game_changeset = Ecto.Changeset.change(game)
-    users_games_changeset = game_changeset |> Ecto.Changeset.put_assoc(:users, [user])
+    users_games_changeset = game_changeset |> Ecto.Changeset.put_assoc(:users, [user | game.users])
     Repo.update!(users_games_changeset)
   end
 end

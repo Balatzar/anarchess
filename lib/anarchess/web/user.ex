@@ -6,7 +6,7 @@ defmodule Anarchess.Web.User do
 
   schema "users" do
     field :name, :string
-    many_to_many :games, Anarchess.Web.Game, join_through: "users_games"
+    many_to_many :games, Anarchess.Web.Game, join_through: "users_games", on_replace: :delete
 
     timestamps()
   end
