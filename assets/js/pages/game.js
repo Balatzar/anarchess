@@ -170,6 +170,8 @@ $(document).ready(() => {
     window.board = Chessboard("myBoard", config);
   };
 
+  $("#myBoard").on("touchmove", e => e.preventDefault());
+
   window.autoplay = function() {
     window.startGame();
     const side = $('input[name="side"]').val() == "b" ? "w" : "b";
