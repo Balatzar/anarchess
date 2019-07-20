@@ -10,7 +10,7 @@
     <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/logos/big.png") %>"/>
     <meta property="og:description" content="Chess but in real time"/>
     <meta property="og:site_name" content="Anarchess"/>
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="app"/>
     <meta name="twitter:creator" content="@BalthazarAubard"/>
     <title>Anarchess</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
