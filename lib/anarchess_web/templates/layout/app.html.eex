@@ -5,12 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta property="og:title" content="Anarchess"/>
+    <meta property="twitter:title" content="Anarchess"/>
     <meta property="og:type" content="website"/>
-    <meta property="og:url" content="https://www.anarchess.io"/>
-    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/logos/big.png") %>"/>
-    <meta property="og:description" content="Chess but in real time"/>
+    <meta property="og:url" content="<%= current_url(@conn) %>"/>
+    <meta property="twitter:url" content="<%= current_url(@conn) %>"/>
+    <meta property="og:image" content="<%= Routes.static_path(@conn, "/images/logos/anarchess-test-preview.gif") %>"/>
+    <meta property="og:image:width" content="396" />
+    <meta property="og:image:height" content="386" />
+    <meta property="og:description" content="Anarchess is a web game accessible without creating an account that allows you to challenge a friend or stranger. The game is presented as a classic chess game, but unlike the original version which is in turn by turn, our version is in real time."/>
+    <meta property="twitter:description" content="Anarchess is a web game accessible without creating an account that allows you to challenge a friend or stranger. The game is presented as a classic chess game, but unlike the original version which is in turn by turn, our version is in real time."/>
     <meta property="og:site_name" content="Anarchess"/>
-    <meta name="twitter:card" content="app"/>
+    <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:creator" content="@BalthazarAubard"/>
     <title>Anarchess</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
