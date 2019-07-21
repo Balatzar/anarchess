@@ -1,0 +1,5 @@
+<h1>People</h1>
+<p>Big thanks to everyone that helped me test the game, adjust the gameplay, find bugs or suggest features: Alexandra, Loïc. <%= link "Contact me", to: Routes.page_path(@conn, :faq) <> "#anchor-contact" %> if you wanna help!</p>
+
+<h1>Code</h1>
+<p>The website is coded in <%= link "Elixir", to: "https://elixir-lang.org/" %> with the framework <%= link "Phoenix", to: "https://github.com/phoenixframework/phoenix" %>. The chess board is generated with <%= link "chessboardjs", to: "https://chessboardjs.com" %> and the game logic is handled by a heavily modified version of <%= link "chess.js", to: "https://github.com/jhlywa/chess.js" %>.</p>

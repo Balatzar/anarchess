@@ -42,6 +42,18 @@
       <p class="alert js-alert-danger alert-danger hidden" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
+    <footer>
+      <ul>
+        <li><%= link "FAQ", to: Routes.page_path(@conn, :faq) %></li>
+        <li><%= link "Contact", to: Routes.page_path(@conn, :faq) <> "#anchor-contact" %></li>
+        <li><%= link "Status page", to: "https://updown.io/4jrs" %></li>
+      </ul>
+      <ul>
+        <li><%= link "Create a game", to: Routes.game_path(@conn, :new) %></li>
+        <li><%= link "Code", to: "https://github.com/Balatzar/anarchess" %></li>
+        <li><%= link "Credits", to: Routes.page_path(@conn, :credits) %></li>
+      </ul>
+    </footer>
     <script>window.userToken = <%= get_session(@conn, :user).id %></script>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>

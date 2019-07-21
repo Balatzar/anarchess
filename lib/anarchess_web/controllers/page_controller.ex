@@ -8,4 +8,8 @@ defmodule AnarchessWeb.PageController do
   def faq(conn, _params) do
     render(conn, "faq.html")
   end
+
+  def credits(conn, _params) do
+    render(conn, "credits.html")
+  end
 end
