@@ -17,7 +17,7 @@ $(document).ready(() => {
     if (event.keyCode === 13) {
       channel.push("new_msg", { body: chatInput.value });
       chatInput.value = "";
-      $(".js-messages").scrollTop($(".js-messages").height());
+      $(".js-messages").scrollTop($(".js-messages")[0].scrollHeight);
     }
   });
 
@@ -25,7 +25,7 @@ $(document).ready(() => {
     const messageItem = document.createElement("li");
     messageItem.innerText = payload.body;
     messagesContainer.appendChild(messageItem);
-    $(".js-messages").scrollTop($(".js-messages").height());
+    $(".js-messages").scrollTop($(".js-messages")[0].scrollHeight);
   });
 
   $(".js-openGame").click(e => {

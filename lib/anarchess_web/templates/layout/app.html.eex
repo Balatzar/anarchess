@@ -37,7 +37,7 @@
         </a>
       </section>
     </header>
-    <main role="main" class="container">
+    <main role="main" class="container main-container">
       <p class="alert js-alert-info alert-info hidden" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert js-alert-danger alert-danger hidden" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
