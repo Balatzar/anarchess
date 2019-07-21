@@ -552,7 +552,6 @@ h6 {
   padding: 0 2rem;
   position: relative;
   width: 100%;
-  min-height: 300px;
 }
 select {
   width: auto;

@@ -34,3 +34,7 @@ footer ul {
   display: inline-block;
   margin-left: 50px;
 }
+
+.landing {
+  min-height: 300px;
+}
