@@ -176,13 +176,18 @@ $(document).ready(() => {
     window.startGame();
     const side = $('input[name="side"]').val() == "b" ? "w" : "b";
     function makeRandomMove() {
-      var possibleMoves = game.moves({ side });
+      const possibleMoves = game.moves({ side });
 
       // exit if the game is over
       // if (game.game_over({ side: side })) return;
 
-      var randomIdx = Math.floor(Math.random() * possibleMoves.length);
-      game.move(possibleMoves[randomIdx], { side });
+      const randomIdx = Math.floor(Math.random() * possibleMoves.length);
+      const { from, to } = game.move(possibleMoves[randomIdx], { side });
+      channel.push("move", {
+        from,
+        to,
+        side: $('input[name="side"]').val(),
+      });
       board.position(game.fen());
 
       setTimeout(makeRandomMove, 1000);

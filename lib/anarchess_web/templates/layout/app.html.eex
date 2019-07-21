@@ -46,11 +46,11 @@
       <ul>
         <li><%= link "FAQ", to: Routes.page_path(@conn, :faq) %></li>
         <li><%= link "Contact", to: Routes.page_path(@conn, :faq) <> "#anchor-contact" %></li>
-        <li><%= link "Status page", to: "https://updown.io/4jrs" %></li>
+        <li><%= link "Status page", to: "https://updown.io/4jrs", target: "_blank" %></li>
       </ul>
       <ul>
         <li><%= link "Create a game", to: Routes.game_path(@conn, :new) %></li>
-        <li><%= link "Code", to: "https://github.com/Balatzar/anarchess" %></li>
+        <li><%= link "Code", to: "https://github.com/Balatzar/anarchess", target: "_blank" %></li>
         <li><%= link "Credits", to: Routes.page_path(@conn, :credits) %></li>
       </ul>
     </footer>
